@@ -1,0 +1,42 @@
+<h1>Learning mode</h1>
+{% if learned %}
+    <h2>Thank you!</h2>
+    {% if word_created or link_created %}
+        <p><i><b>NB:</b> New words and word links <b>MUST BE VERIFIED</b> by an
+        administrator before they will appear on the site. Approval may take some
+        time. Thank you for your patience and understanding.</i></p>
+    {% endif %}
+    {% if word_created %}
+        <p><b>I learned the word <a href="{% url 'words:detail' last_submission.word %}"><i>{{last_submission}}</i></a>!</b></p>
+    {% elif last_submission.is_rejected %}
+        <p><b>Unfortunately, <a href="{% url 'words:detail' last_submission.word %}"><i>{{last_submission}}</i></a> was rejected.</b>
+            Perhaps it is a popular misspelling or typo; or perhaps it is
+            a word particle such as <i>-ing</i> or <i>-ful</i> that doesn't
+            form a proper English word by itself.
+        </p>
+    {% endif %}
+    {% if link_created %}
+        <p>I learned a new link between words: <i>{{ link }}</i>!</p>
+    {% else %}
+        I was already aware of the link <i>{{ link }}</i>. What do you make
+        of this one, though?
+    {% endif %}
+{% endif %}
+<h2>Teach me something...</h2>
+<form action="{% url 'learn:learn_word' word=form.word.value %}" method="post">
+{% csrf_token %}
+{% if form.word_order.value = '0' %}
+    <div>{{ form.submission }} {{ form.word.value }}</div>
+{% else %}
+    <div>{{ form.word.value }} {{ form.submission }}</div>
+{% endif %}
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+{% if form.is_bound and form.errors %}
+    {{ form.errors }}
+{% endif %}
+
+<input type="submit" value="Submit" />
+<a href="{% url 'learn:index' %}">Give me a different word!</a>
+</form>

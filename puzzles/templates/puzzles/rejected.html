@@ -1,0 +1,68 @@
+<h1>That's not quite right...</h1>
+<p class="explanation">The puzzle was:</p>
+<p class="puzzle"><i><a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">{{puzzle}}</a></i></p>
+<p class="explanation">Your answer was:</p>
+<h2>{{ answer.answer }}</h2>
+<p class="explanation">as in:</p>
+<ul>
+<li>{{puzzle.left}} {{answer.answer}}</li>
+<li>{{answer.answer}} {{puzzle.right}}</li>
+</ul>
+<p class="explanation">
+Unfortunately this answer has been rejected for some reason. I will try to
+shed a bit more light on why this is.</p>
+
+<p class="explanation">
+{% if answer.answer.is_rejected %}
+Your answer <i>{{answer.answer}}</i> is a rejected word.
+Sorry about that.
+There are several reasons why words may be rejected - for example, if they are
+misspellings of words, or word particles rather than full words in themselves,
+or certain kinds of trademark. Rejected words are never allowed to appear in
+puzzles or make links with other words.
+{% else %}
+    The first part <i>({{puzzle.left}} {{answer.answer}})</i>
+    {% if left_link.is_rejected %}
+has been rejected. There are many, many reasons why this could be the case.
+Often it's because this combination of words does not have a <i>specific</i>
+meaning - for example, <i>hot dog</i> refers specifically to a kind of food,
+while <i>hot cat</i> just refers to a feline. The English language is in
+constant flux and meaningful new combinations crop up all the time: it may
+just be that we havwn't got around to learning this one yet.
+    {% else %}
+        looks fine.
+    {% endif %}
+    {% if left_link.annotation %}
+        </p><p class="annotation">
+            {{left_link.annotation}}
+        </p>
+    {% endif %}
+    </p><p class="explanation">
+    The second part <i>({{answer.answer}} {{puzzle.right}})</i>
+    {% if right_link.is_rejected %}
+        {% if left_link.is_rejected %}
+            has also been rejected in the same way.
+        {% else %}
+has been rejected. There are many, many reasons why this could be the case.
+Often it's because this combination of words does not have a <i>specific</i>
+meaning - for example, <i>hot dog</i> refers specifically to a kind of food,
+while <i>hot cat</i> just refers to a feline. The English language is in
+constant flux and meaningful new combinations crop up all the time: it may
+just be that we havwn't got around to learning this one yet.
+        {% endif %}
+        {% if right_link.annotation %}
+        </p><p class="annotation">
+            {{right_link.annotation}}
+        </p>
+        {% endif %}
+    {% else %}
+looks fine.
+    {% endif %}
+{% endif %}
+</p>
+<p class="links">
+<a href="{% url 'puzzles:index' %}">Back to puzzles</a>
+<a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">Try the same puzzle again</a>
+<a href="{% url 'puzzles:random' %}">Random puzzle</a>
+<a href="{% url 'puzzles:get' %}">New puzzle</a>
+</p>

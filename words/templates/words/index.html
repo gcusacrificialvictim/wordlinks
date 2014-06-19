@@ -1,0 +1,24 @@
+{% if word_list %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if word_list.has_previous %}
+                <a href="?page={{ word_list.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ word_list.number }} of {{ word_list.paginator.num_pages }}.
+            </span>
+    
+            {% if word_list.has_next %}
+                <a href="?page={{ word_list.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+	<ul>
+	{% for word in word_list %}
+		<li><a href="{% url 'words:detail' word.word %}">{{ word.word }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No words have been defined yet.</p>
+{% endif %}

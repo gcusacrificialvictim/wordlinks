@@ -1,0 +1,21 @@
+<h1>Puzzle creation</h1>
+{% if puzzle %}
+<h2>Thank you</h2>
+<p>Your puzzle <a href=""><i>{{ puzzle }}</i></a> has been created!</p>
+{% endif %}
+<form action="{% url 'puzzles:create' word.word %}" method="post">
+{% csrf_token %}
+<!-- <input type="hidden" name="word" value="{{word.word}}" /> -->
+<select name='left'>
+{% for w in word.predecessor.available %}
+    <option value="{{w.word}}">{{w}}</option>
+{% endfor %}
+</select>
+<b>{{word.word}}</b>
+<select name='right'>
+{% for w in word.successor.available %}
+    <option value="{{w.word}}">{{w}}</option>
+{% endfor %}
+</select>
+<input type="submit" name="Submit" />
+</form>

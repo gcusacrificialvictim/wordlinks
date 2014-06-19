@@ -1,0 +1,39 @@
+<h1>I'll have to check that...</h1>
+<p class="explanation">The puzzle was:</p>
+<p class="puzzle"><i><a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">{{puzzle}}</a></i></p>
+<p class="explanation">Your answer was:</p>
+<h2>{{ answer.answer }}</h2>
+<p class="explanation">as in:</p>
+<ul>
+<li>{{puzzle.left}} {{answer.answer}}</li>
+<li>{{answer.answer}} {{puzzle.right}}</li>
+</ul>
+<p class="explanation">
+{% if answer.answer in puzzle.left.successor.verified %}
+The first part <i>({{puzzle.left}} {{answer.answer}})</i> makes sense, but I
+couldn't understand the second part, <i>{{answer.answer}} {{puzzle.right}}</i>.
+That isn't a word, phrase or two-word idiom that I know about.
+{% elif answer.answer in puzzle.right.predecessor.verified %}
+The second part <i>({{answer.answer}} {{puzzle.right}})</i> makes sense, but I
+couldn't understand the first part, <i>{{puzzle.left}} {{answer.answer}}</i>.
+That isn't a word, phrase or two-word idiom that I know about.
+{% else %}
+But I don't recognise either of <i>{{puzzle.left}} {{answer.answer}}</i> or
+<i>{{answer.answer}} {{puzzle.right}}</i> as words, phrases or idioms.
+{% endif %}
+</p>
+<p>
+This is great news! One of the ways I learn new things is by seeing new and
+different answers to puzzles. I've recorded your answer for a Word Wrangler
+to review. If it's approved, then it will be recognised as a new answer to this
+puzzle, and the new word links will be used in the creation of new puzzles.
+If on the other hand it's rejected for some reason (usually because one of the
+links suggested does not have a <i>specific</i> meaning) then I'll be able
+to explain the problem in a more detailed way on this very page.
+</p>
+<p class="links">
+<a href="{% url 'puzzles:index' %}">Back to puzzles</a>
+<a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">Try the same puzzle again</a>
+<a href="{% url 'puzzles:random' %}">Random puzzle</a>
+<a href="{% url 'puzzles:get' %}">New puzzle</a>
+</p>

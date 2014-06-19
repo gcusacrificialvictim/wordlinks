@@ -1,0 +1,28 @@
+<h1>{{ word }}</h1>
+{% if word.is_rejected %}<p><i>This is a rejected word!</i></p>{% endif %}
+<h2>Links for {{word}}...</h2>
+<h3>...to the left</h3>
+{% if word.backward_links.verified_clean.exists %}
+	<ul>
+	{% for link in word.backward_links.verified_clean %}
+		<li><a href="{% url 'words:detail' link.predecessor %}">{{ link.predecessor.word }}</a>
+	<b>{{ word.word }}</b></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No trains</p>
+{% endif %}
+<h3>...to the right</h3>
+{% if word.forward_links.verified_clean.exists %}
+	<ul>
+	{% for link in word.forward_links.verified_clean %}
+		<li><b>{{ word.word }}</b>
+		<a href="{% url 'words:detail' link.successor %}">{{ link.successor.word }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No trains</p>
+{% endif %}
+{% if not word.is_terminus %}
+<a href="{% url 'puzzles:create' word.word %}">Create a puzzle from this word</a>
+{% endif %}

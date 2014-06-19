@@ -1,0 +1,23 @@
+<h1>Right answer!</h1>
+<p class="explanation">The puzzle was:</p>
+<p class="puzzle"><i><a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">{{puzzle}}</a></i></p>
+<p class="explanation">Your answer was:</p>
+<h2>{{ answer.answer }}</h2>
+<p class="explanation">as in:</p>
+<ul><li>{{puzzle.left}} {{answer.answer}}{% if left_link.annotation %}
+    <p class="annotation">{{ left_link.annotation }}</p>
+{% endif %}</li>
+<li>{{answer.answer}} {{puzzle.right}}{% if right_link.annotation %}
+    <p class="annotation">{{ right_link.annotation }}</p>
+{% endif %}</li></ul>
+<p class="explanation">
+This puzzle has now been attempted {{puzzle.attempts}} times.
+This answer has been given {{answer.attempts}} times.
+    {% if puzzle.answers.count > 1 %}
+        There are {{ puzzle.answers.count }} known answers.
+    {% endif %}
+</p>
+<p class="links"><a href="{% url 'puzzles:index' %}">Back to puzzles</a>
+<a href="{% url 'puzzles:random' %}">Random puzzle</a>
+<a href="{% url 'puzzles:get' %}">New puzzle</a>
+</p>

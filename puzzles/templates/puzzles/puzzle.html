@@ -1,0 +1,20 @@
+<form action="{% url 'puzzles:answer' puzzle.id %}" method="post">
+{% csrf_token %}
+<p><b>{{puzzle.left}}</b>
+    {% for field in form %}
+        {{ field }}
+    {% endfor %}
+<b>{{puzzle.right}}</b></p>
+{% if form.errors %}
+    <ul>
+    {% for error in form.answer.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<input type="submit" value="Submit" />
+</form>
+<p class="links"><a href="{% url 'puzzles:index' %}">Back to puzzles</a>
+<a href="{% url 'puzzles:random' %}">Random puzzle</a>
+<a href="{% url 'puzzles:get' %}">New puzzle</a>
+</p>

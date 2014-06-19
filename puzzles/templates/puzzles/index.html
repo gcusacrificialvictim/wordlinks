@@ -1,0 +1,13 @@
+{% if puzzles %}
+    <h1>Missing Links</h1>
+        <ul>
+        {% for puzzle in puzzles %}
+                <li><a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right %}">{{puzzle}}</a></li>
+        {% endfor %}
+        </ul>
+<p class="links"><a href="{% url 'puzzles:random' %}">Random puzzle</a>
+<a href="{% url 'puzzles:get' %}">Get puzzle</a>
+</p>
+{% else %}
+        Sorry, we don't have any puzzles to load.
+{% endif %}
