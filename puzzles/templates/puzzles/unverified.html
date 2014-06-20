@@ -5,15 +5,16 @@
 <h2>{{ answer.answer }}</h2>
 <p class="explanation">as in:</p>
 <ul>
-<li>{{puzzle.left}} {{answer.answer}}</li>
-<li>{{answer.answer}} {{puzzle.right}}</li>
+<li>{{left_link}}</li>
+<li>{{right_link}}</li>
 </ul>
 <p class="explanation">
-{% if answer.answer in puzzle.left.successor.verified %}
+
+{% if left_link.is_verified %}
 The first part <i>({{puzzle.left}} {{answer.answer}})</i> makes sense, but I
 couldn't understand the second part, <i>{{answer.answer}} {{puzzle.right}}</i>.
 That isn't a word, phrase or two-word idiom that I know about.
-{% elif answer.answer in puzzle.right.predecessor.verified %}
+{% elif right_link.is_verified %}
 The second part <i>({{answer.answer}} {{puzzle.right}})</i> makes sense, but I
 couldn't understand the first part, <i>{{puzzle.left}} {{answer.answer}}</i>.
 That isn't a word, phrase or two-word idiom that I know about.

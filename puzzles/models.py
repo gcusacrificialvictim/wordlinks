@@ -32,7 +32,15 @@ class Puzzle(models.Model):
     class Meta:
         unique_together = ('left', 'right')
 
+class AnswerManager(models.Manager):
+    def _get_verified(self):
+        return self.get_queryset().filter(is_verified)
+
+    verified = property(_get_verified)
+
 class Answer(models.Model):
+    objects = AnswerManager()
+    
     puzzle = models.ForeignKey(Puzzle, related_name='answers')
     answer = models.ForeignKey(Word)
     attempts = models.PositiveIntegerField(default=0)
@@ -51,6 +59,17 @@ class Answer(models.Model):
             link2.is_verified
         )
 
+    @property
+    def is_unverified(self):
+        link1, link2 = self.get_links()
+        return (
+            self.puzzle.left.is_unverified or
+            self.puzzle.right.is_unverified or
+            self.answer.is_unverified or
+            link1.is_unverified or
+            link2.is_unverified
+        )
+        
     @property
     def is_rejected(self):
         link1, link2 = self.get_links()

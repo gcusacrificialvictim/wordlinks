@@ -14,12 +14,11 @@ shed a bit more light on why this is.</p>
 
 <p class="explanation">
 {% if answer.answer.is_rejected %}
-Your answer <i>{{answer.answer}}</i> is a rejected word.
-Sorry about that.
-There are several reasons why words may be rejected - for example, if they are
-misspellings of words, or word particles rather than full words in themselves,
-or certain kinds of trademark. Rejected words are never allowed to appear in
-puzzles or make links with other words.
+Your answer <i>{{answer.answer}}</i> is a rejected word. Sorry about that.</p>
+<p class="explanation">There are several reasons why words may be rejected -
+for example, if they are misspellings of words, or word particles rather than
+full words in themselves, or certain kinds of trademark. Rejected words are
+never allowed to appear in puzzles or make links with other words.</p>
 {% else %}
     The first part <i>({{puzzle.left}} {{answer.answer}})</i>
     {% if left_link.is_rejected %}
@@ -28,7 +27,7 @@ Often it's because this combination of words does not have a <i>specific</i>
 meaning - for example, <i>hot dog</i> refers specifically to a kind of food,
 while <i>hot cat</i> just refers to a feline. The English language is in
 constant flux and meaningful new combinations crop up all the time: it may
-just be that we havwn't got around to learning this one yet.
+just be that we haven't got around to learning this one yet.
     {% else %}
         looks fine.
     {% endif %}
@@ -41,14 +40,15 @@ just be that we havwn't got around to learning this one yet.
     The second part <i>({{answer.answer}} {{puzzle.right}})</i>
     {% if right_link.is_rejected %}
         {% if left_link.is_rejected %}
-            has also been rejected in the same way.
+            has also been rejected in the same way (although probably for
+            a different reason.)
         {% else %}
 has been rejected. There are many, many reasons why this could be the case.
 Often it's because this combination of words does not have a <i>specific</i>
 meaning - for example, <i>hot dog</i> refers specifically to a kind of food,
 while <i>hot cat</i> just refers to a feline. The English language is in
 constant flux and meaningful new combinations crop up all the time: it may
-just be that we havwn't got around to learning this one yet.
+just be that we haven't got around to learning this one yet.
         {% endif %}
         {% if right_link.annotation %}
         </p><p class="annotation">

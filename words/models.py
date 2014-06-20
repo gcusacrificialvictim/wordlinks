@@ -7,7 +7,11 @@ import re
 # unreadable and unmaintainable. The idea was that it's be easier and more
 # flexible to model approval / rejection of words with a tag system, but I'm
 # not sure that's the way its turned out at all.
-
+#
+# So what to do about it?
+#
+# Well, er, probably just having some flag columns in the DB would be ok.
+#
 
 class WordManager(models.Manager):
     def _get_available(self):
@@ -19,6 +23,9 @@ class WordManager(models.Manager):
     def _get_verified_clean(self):
         return self._get_clean().filter(tags__name__in=['verified'])
 
+    def _get_unverified(self):
+        return self._get_available().filter(tags__name__in=['unverified'])
+
     def _get_clean(self):
         return self._get_available().exclude(tags__name__in=['obscene', 'offensive'])
         
@@ -29,6 +36,7 @@ class WordManager(models.Manager):
     clean = property(_get_clean)
     verified = property(_get_verified)
     verified_clean = property(_get_verified_clean)
+    unverified = property(_get_unverified)
     rejected = property(_get_rejected)
 
 word_re = re.compile(r'^[a-zA-Z]+$')
@@ -97,7 +105,7 @@ class Word(models.Model):
 
     def verify(self):
         self.mark('verified')
-        self.unmark('unverified')
+        self.unmark('unverified', 'junk', 'rejected')
     def unverify(self):
         self.mark('unverified')
         self.unmark('verified')
@@ -106,7 +114,7 @@ class Word(models.Model):
         self.mark('rejected')
         self.unmark('unverified', 'verified')
     def unreject(self):
-        self.unmark('rejected')
+        self.unmark('rejected', 'junk')
         self.mark('verified')
 
     def obscene(self):
@@ -208,18 +216,18 @@ class WordLink(models.Model):
 
     def verify(self):
         self.mark('verified')
-        self.unmark('unverified')
+        self.unmark('unverified', 'junk', 'rejected')
         self.predecessor.verify()
         self.successor.verify()
     def unverify(self):
         self.mark('unverified')
-        self.unmark('verified')
+        self.unmark('verified', 'junk', 'rejected')
 
     def reject(self):
         self.mark('rejected')
         self.unmark('unverified', 'verified')
     def unreject(self):
-        self.unmark('rejected')
+        self.unmark('rejected', 'junk')
         self.mark('verified')
 
     def obscene(self):
