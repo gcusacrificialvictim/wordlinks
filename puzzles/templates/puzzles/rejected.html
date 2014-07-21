@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <h1>That's not quite right...</h1>
 <p class="explanation">The puzzle was:</p>
 <p class="puzzle"><i><a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">{{puzzle}}</a></i></p>
@@ -41,7 +44,7 @@ just be that we haven't got around to learning this one yet.
     {% if right_link.is_rejected %}
         {% if left_link.is_rejected %}
             has also been rejected in the same way (although probably for
-            a different reason.)
+            different reasons.)
         {% else %}
 has been rejected. There are many, many reasons why this could be the case.
 Often it's because this combination of words does not have a <i>specific</i>
@@ -66,3 +69,4 @@ looks fine.
 <a href="{% url 'puzzles:random' %}">Random puzzle</a>
 <a href="{% url 'puzzles:get' %}">New puzzle</a>
 </p>
+{% endblock %}

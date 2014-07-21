@@ -90,7 +90,7 @@ class Answer(models.Model):
         link2, created2 = WordLink.objects.get_or_create(predecessor = self.answer, successor = self.puzzle.right)
         return (link1, link2)
 
-    def verify():
+    def verify(self):
         # approving an answer means first approving the component words if
         # necessary: 
         self.puzzle.left.verify();
@@ -102,7 +102,7 @@ class Answer(models.Model):
 
         ## then the two links A -> B and B -> C need to be created if necessary
         ## and also approved: 
-        link1, link2, c1, c2 = self.get_links()
+        link1, link2 = self.get_links()
         link1.verify();
         link2.verify();
         link1.save();

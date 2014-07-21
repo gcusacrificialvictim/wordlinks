@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <h1>I'll have to check that...</h1>
 <p class="explanation">The puzzle was:</p>
 <p class="puzzle"><i><a href="{% url 'puzzles:puzzle_by_words' puzzle.left puzzle.right  %}">{{puzzle}}</a></i></p>
@@ -23,6 +26,16 @@ But I don't recognise either of <i>{{puzzle.left}} {{answer.answer}}</i> or
 <i>{{answer.answer}} {{puzzle.right}}</i> as words, phrases or idioms.
 {% endif %}
 </p>
+{% if left_link.annotation %}
+    <p class="annotation">
+        {{left_link.annotation}}
+    </p>
+{% endif %}
+{% if right_link.annotation %}
+    <p class="annotation">
+        {{left_link.annotation}}
+    </p>
+{% endif %}
 <p>
 This is great news! One of the ways I learn new things is by seeing new and
 different answers to puzzles. I've recorded your answer for a Word Wrangler
@@ -38,3 +51,4 @@ to explain the problem in a more detailed way on this very page.
 <a href="{% url 'puzzles:random' %}">Random puzzle</a>
 <a href="{% url 'puzzles:get' %}">New puzzle</a>
 </p>
+{% endblock %}

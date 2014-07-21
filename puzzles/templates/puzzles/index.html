@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 {% if puzzles %}
     <h1>Missing Links</h1>
         <ul>
@@ -11,3 +14,4 @@
 {% else %}
         Sorry, we don't have any puzzles to load.
 {% endif %}
+{% endblock %}
