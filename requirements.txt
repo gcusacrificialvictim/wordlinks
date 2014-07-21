@@ -9,7 +9,6 @@ dj-static==0.0.6
 django-taggit==0.10
 django-toolbelt==0.0.1
 ethtool==0.6
-gunicorn==19.0.0
 iwlib==1.0
 logilab-astng==0.24.1
 logilab-common==0.58.1
@@ -31,4 +30,5 @@ setools==1.0
 simplejson==2.0.9
 static3==0.5.1
 unittest2==0.5.1
+waitress==0.8.9
 yum-metadata-parser==1.1.2
