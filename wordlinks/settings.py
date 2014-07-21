@@ -22,6 +22,10 @@ DATABASES = {
     }
 }
 
+# oh wait ignore all that and do this instead:
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -112,6 +116,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+
 )
 
 INSTALLED_APPS = (
@@ -130,6 +135,7 @@ INSTALLED_APPS = (
     'puzzles',
     'taggit',
     'learn',
+    'herokuapp',
 )
 
 # A sample logging configuration. The only tangible logging
