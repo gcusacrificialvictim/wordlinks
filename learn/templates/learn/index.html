@@ -17,9 +17,21 @@
     {% endif %}
     {% if link_created %}
         <p>I learned a new link between words: <i>{{ link }}</i>!</p>
+    {% elif link.is_rejected %}
+        <p>Unfortunately your suggestion <i>{{ link }}</i> has been
+        rejected.</p>
+        <p class="explanation">There are many, many reasons why this could be the case.
+Often it's because this combination of words does not have a <i>specific</i>
+meaning - for example, <i>hot dog</i> refers specifically to a kind of food,
+while <i>hot cat</i> refers only to a flustered feline. The English language is in
+constant flux and meaningful new combinations crop up all the time: it may
+just be that we haven't got around to learning this one yet.</p>
+        {% if link.annotation %}
+        <p class="annotation">{{link.annotation}}</p>
+        {% endif %}
     {% else %}
-        I was already aware of the link <i>{{ link }}</i>. What do you make
-        of this one, though?
+        <p>I was already aware of the link <i>{{ link }}</i>. What do you make
+        of this one, though?</p>
     {% endif %}
 {% endif %}
 <h2>Teach me something...</h2>
